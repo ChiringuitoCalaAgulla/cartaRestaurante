@@ -58,21 +58,130 @@
             padding: 20px;
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        .main-header {
+            background: linear-gradient(to right,
+                    #0a1e32,
+                    /* Azul oscuro */
+                    #053c50
+                    /* Azul más claro */
+                );
+            padding: 2rem 0;
             position: relative;
-            z-index: 10;
+            text-align: center;
         }
 
-        .header-content {
+        .header-layout {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
+            position: relative;
+            gap: 1rem;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            /* Espacio controlado entre logo y subtítulo */
+        }
+
+        /* Contenedor del logo y subtítulo (si necesitas ajustes específicos) */
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            /* Espacio entre logo y subtítulo */
+        }
+
+        .restaurant-logo {
+            width: auto;
+            height: 120px;
+            max-width: min(100%, 400px);
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+            transition: transform 0.3s ease;
+            margin-bottom: 0.5rem;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            #header-subtitle {
+                font-size: 1rem;
+                color: #fff;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+                margin: 0;
+            }
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .language-selector button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .lang-flag {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Efectos hover */
+        .restaurant-logo:hover {
+            transform: scale(1.03);
+        }
+
+        .language-selector button:hover {
+            transform: scale(1.15);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .language-selector {
+                margin-top: 1rem;
+            }
+        }
+
+        #header-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            text-shadow:
+                1px 1px 3px rgba(0, 0, 0, 0.8),
+                0 0 10px rgba(255, 255, 255, 0.3);
+            /* Efecto brillo sutil */
+            margin-top: 0.8rem;
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* Efecto hover opcional */
+        #header-subtitle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
         }
 
         .logo {
@@ -965,6 +1074,7 @@
             background-color: white;
             border-radius: 12px;
             padding: 30px;
+            border-left: 5px solid var(--coffee);
             /* Igual que .menu-section */
             margin-bottom: 30px;
         }
@@ -1393,20 +1503,24 @@
 </head>
 
 <body>
-    <header>
-        <div class="container header-content">
-            <div class="header-text">
-                <h1 class="restaurant-name">Chiringuito Cala Agulla</h1>
-                <p id="header-subtitle" data-translate="Gastronomía mediterránea frente al mar">Gastronomía mediterránea
-                    frente al mar</p>
-            </div>
-            <div class="language-selector">
-                <img src="images/b_esp.png" alt="Español" title="Español" onclick="changeLanguage('es')"
-                    class="lang-flag">
-                <img src="images/b_eng.png" alt="English" title="English" onclick="changeLanguage('en')"
-                    class="lang-flag">
-                <img src="images/b_ale.png" alt="Deutsch" title="Deutsch" onclick="changeLanguage('de')"
-                    class="lang-flag">
+    <header class="main-header">
+        <div class="container">
+            <div class="header-layout">
+                <!-- Logo y subtítulo centrados -->
+                <div class="logo-container">
+                    <img src="./images/logoChiringuitoCalaAgulla.jpg" alt="Chiringuito Cala Agulla"
+                        class="restaurant-logo">
+                    <p id="header-subtitle" data-translate="Gastronomía mediterránea frente al mar">
+                        Gastronomía mediterránea frente al mar
+                    </p>
+                </div>
+
+                <!-- Selector de idioma (posición absoluta) -->
+                <div class="language-selector">
+                    <img src="images/b_esp.png" alt="Español" onclick="changeLanguage('es')" class="lang-flag">
+                    <img src="images/b_eng.png" alt="English" onclick="changeLanguage('en')" class="lang-flag">
+                    <img src="images/b_ale.png" alt="Deutsch" onclick="changeLanguage('de')" class="lang-flag">
+                </div>
             </div>
         </div>
     </header>
@@ -1624,8 +1738,8 @@
                     <p class="item-description" data-translate="Jamón york, queso y tomate">Jamón york, queso y
                         tomate</p>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
-                            <img src="./images/10.png" alt="Imagen 10">
+                        <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/10.png" alt="Imagen 10">
                     </div>
                 </div>
                 <div class="item-price">6,50 €</div>
@@ -1637,8 +1751,8 @@
                     <p class="item-description" data-translate="Jamón york, queso, tomate y piña">Jamón york, queso,
                         tomate y piña</p>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
-                            <img src="./images/10.png" alt="Imagen 10">
+                        <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/10.png" alt="Imagen 10">
                     </div>
                 </div>
                 <div class="item-price">8,00 €</div>
@@ -1670,8 +1784,8 @@
                     <p class="item-description" data-translate="Lechuga, tomate, cebolla, huevo, salsa rosa">
                         Lechuga, tomate, cebolla, huevo, salsa rosa</p>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
-                            <img src="./images/8.png" alt="Imagen 8">
+                        <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/8.png" alt="Imagen 8">
                     </div>
                 </div>
                 <div class="item-price">8,00 €</div>
@@ -1685,10 +1799,10 @@
                         Tres pisos de pan con queso, cebolla morada, tomate, lechuga, atún, huevo y salsa rosa
                     </p>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
-                            <img src="./images/10.png" alt="Imagen 10">
-                            <img src="./images/8.png" alt="Imagen 8">
-                            <img src="./images/2.png" alt="Imagen 2">
+                        <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/10.png" alt="Imagen 10">
+                        <img src="./images/8.png" alt="Imagen 8">
+                        <img src="./images/2.png" alt="Imagen 2">
                     </div>
                 </div>
                 <div class="item-price">12,00 €</div>
@@ -1702,10 +1816,10 @@
                         Tres pisos de pan con lechuga, tomate, salmón, huevo y salsa de mostaza con miel
                     </p>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
-                            <img src="./images/10.png" alt="Imagen 10">
-                            <img src="./images/8.png" alt="Imagen 8">
-                            <img src="./images/2.png" alt="Imagen 2">
+                        <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/10.png" alt="Imagen 10">
+                        <img src="./images/8.png" alt="Imagen 8">
+                        <img src="./images/2.png" alt="Imagen 2">
                     </div>
                 </div>
                 <div class="item-price">12,00 €</div>
@@ -1720,8 +1834,8 @@
                 <div class="item-info">
                     <h3 class="item-name" data-translate="Alioli con pan y aceitunas">Alioli con pan y aceitunas</h3>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
-                            <img src="./images/8.png" alt="Imagen 8">
+                        <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/8.png" alt="Imagen 8">
                     </div>
                 </div>
                 <div class="item-price">6,60 €</div>
@@ -1732,8 +1846,8 @@
                     <h3 class="item-name" data-translate="Pan de pizza alioli y aceitunas">Pan de pizza alioli y
                         aceitunas</h3>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
-                            <img src="./images/8.png" alt="Imagen 8">
+                        <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/8.png" alt="Imagen 8">
                     </div>
                 </div>
                 <div class="item-price">8,90 €</div>
@@ -1758,7 +1872,8 @@
 
             <div class="menu-item">
                 <div class="item-info">
-                    <h3 class="item-name" data-translate="Plato de jamón serrano y queso">Plato de jamón serrano y queso</h3>
+                    <h3 class="item-name" data-translate="Plato de jamón serrano y queso">Plato de jamón serrano y queso
+                    </h3>
                     <div class="item-images">
                         <img src="./images/8.png" alt="Imagen 8">
                     </div>
@@ -1824,7 +1939,8 @@
 
             <div class="menu-item">
                 <div class="item-info">
-                    <h3 class="item-name" data-translate="Papas gratinadas con queso y bacon">Papas gratinadas con queso y bacon</h3>
+                    <h3 class="item-name" data-translate="Papas gratinadas con queso y bacon">Papas gratinadas con queso
+                        y bacon</h3>
                     <div class="item-images">
                         <img src="./images/8.png" alt="Imagen 8">
                     </div>
@@ -1889,10 +2005,11 @@
 
             <div class="menu-item">
                 <div class="item-info">
-                    <h3 class="item-name" data-translate="Fingers de pollo con chutney">Fingers de pollo con chutney</h3>
+                    <h3 class="item-name" data-translate="Fingers de pollo con chutney">Fingers de pollo con chutney
+                    </h3>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
-                            <img src="./images/8.png" alt="Imagen 8">
+                        <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/8.png" alt="Imagen 8">
                     </div>
                 </div>
                 <div class="item-price">12,00 €</div>
@@ -1909,7 +2026,7 @@
                 <div class="item-info">
                     <h3 class="item-name" data-translate="Pan">Pan</h3>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/13.png" alt="Imagen 13">
                     </div>
                 </div>
                 <div class="item-price">2,00 €</div>
@@ -1917,7 +2034,8 @@
 
             <div class="menu-item">
                 <div class="item-info">
-                    <h3 class="item-name" data-translate="Alitas de pollo (con salsa barbacoa)">Alitas de pollo (con salsa barbacoa)</h3>
+                    <h3 class="item-name" data-translate="Alitas de pollo (con salsa barbacoa)">Alitas de pollo (con
+                        salsa barbacoa)</h3>
                     <div class="item-images">
                         <img src="./images/4.png" alt="Imagen 4">
                     </div>
@@ -2165,10 +2283,10 @@
                             data-translate="Tomate, mozzarella, pimiento, cebolla, jamón york y gambas">Tomate,
                             mozzarella, pimiento, cebolla, jamón york y gambas</p>
                         <div class="item-images">
-                        <img src="./images/13.png" alt="Imagen 13">
-                        <img src="./images/10.png" alt="Imagen 10">
-                        <img src="./images/1.png" alt="Imagen 1">
-                    </div>
+                            <img src="./images/13.png" alt="Imagen 13">
+                            <img src="./images/10.png" alt="Imagen 10">
+                            <img src="./images/1.png" alt="Imagen 1">
+                        </div>
                     </div>
                     <div class="item-price">17,50 €</div>
                 </div>
@@ -2206,7 +2324,7 @@
                 <div class="item-info">
                     <h3 class="item-name" data-translate="Pizza Barbacoa">Pizza Barbacoa</h3>
                     <p class="item-description"
-                        data-translate="Tomate, mozzarella, oregano, pollo, bacon, cebolla y salsa barbacoa">Tomate, 
+                        data-translate="Tomate, mozzarella, oregano, pollo, bacon, cebolla y salsa barbacoa">Tomate,
                         mozzarella, oregano, pollo, bacon, cebolla y salsa barbacoa</p>
                     <div class="item-images">
                         <img src="./images/13.png" alt="Imagen 13">
@@ -2282,10 +2400,10 @@
                             data-translate="Tiras de pollo, escamas de parmesano, croutons, cebolla morada y salsa cesar">
                             Tiras de pollo, escamas de parmesano, croutons, cebolla morada y salsa cesar</p>
                         <div class="item-images">
-                        <img src="./images/13.png" alt="Imagen 13">
-                        <img src="./images/10.png" alt="Imagen 10">
-                        <img src="./images/8.png" alt="Imagen 8">
-                    </div>
+                            <img src="./images/13.png" alt="Imagen 13">
+                            <img src="./images/10.png" alt="Imagen 10">
+                            <img src="./images/8.png" alt="Imagen 8">
+                        </div>
                     </div>
                     <div class="item-price">18,00 €</div>
                 </div>
@@ -2328,9 +2446,9 @@
                             Mezcla de lechugas, nueces, tomate seco, zanahoria, pipas de calabaza, queso de cabra a la
                             plancha y confitura de higos</p>
                         <div class="item-images">
-                        <img src="./images/11.png" alt="Imagen 11">
-                        <img src="./images/10.png" alt="Imagen 10">
-                    </div>
+                            <img src="./images/11.png" alt="Imagen 11">
+                            <img src="./images/10.png" alt="Imagen 10">
+                        </div>
                     </div>
                     <div class="item-price">17,00 €</div>
                 </div>
@@ -2359,10 +2477,10 @@
                             data-translate="Mezcla de lechugas, aguacate, piña, naranja, manzana, tomate cherry, gambas y salsa rosa">
                             Mezcla de lechugas, aguacate, piña, naranja, manzana, tomate cherry, gambas y salsa rosa</p>
                         <div class="item-images">
-                        <img src="./images/10.png" alt="Imagen 10">
-                        <img src="./images/8.png" alt="Imagen 8">
-                        <img src="./images/1.png" alt="Imagen 1">
-                    </div>
+                            <img src="./images/10.png" alt="Imagen 10">
+                            <img src="./images/8.png" alt="Imagen 8">
+                            <img src="./images/1.png" alt="Imagen 1">
+                        </div>
                     </div>
                     <div class="item-price">19,00 €</div>
                 </div>
@@ -2470,8 +2588,8 @@
                     <p class="item-description" data-translate="Con patatas fritas y ensalada">Con patatas fritas y
                         ensalada</p>
                     <div class="item-images">
-                            <img src="./images/13.png" alt="Imagen 13">
-                            <img src="./images/8.png" alt="Imagen 8">
+                        <img src="./images/13.png" alt="Imagen 13">
+                        <img src="./images/8.png" alt="Imagen 8">
                     </div>
                 </div>
                 <div class="item-price">16,50 €</div>
@@ -2532,7 +2650,7 @@
                     <h3 class="item-name" data-translate="Sardinas a la Plancha">Sardinas a la Plancha</h3>
                     <p class="item-description" data-translate="4 sardinas con ensalada">4 sardinas con ensalada</p>
                     <div class="item-images">
-                            <img src="./images/2.png" alt="Imagen 2">
+                        <img src="./images/2.png" alt="Imagen 2">
                     </div>
                 </div>
                 <div class="item-price">13,50 €</div>
@@ -2559,7 +2677,7 @@
                     <p class="item-description" data-translate="Con patatas fritas y ensalada">Con patatas fritas y
                         ensalada</p>
                     <div class="item-images">
-                            <img src="./images/2.png" alt="Imagen 2">
+                        <img src="./images/2.png" alt="Imagen 2">
                     </div>
                 </div>
                 <div class="item-price">21,90 €</div>
@@ -2571,7 +2689,7 @@
                     <p class="item-description" data-translate="Con patatas fritas y ensalada">Con patatas fritas y
                         ensalada</p>
                     <div class="item-images">
-                            <img src="./images/2.png" alt="Imagen 2">
+                        <img src="./images/2.png" alt="Imagen 2">
                     </div>
                 </div>
                 <div class="item-price">17,50 €</div>
@@ -2777,7 +2895,8 @@
                         data-translate="Popular">Popular</span></span>
                 <div class="menu-item">
                     <div class="item-info">
-                        <h3 class="item-name" data-translate="½ Ración Spaghetti Bolognesa">½ Ración Spaghetti Bolognesa</h3>
+                        <h3 class="item-name" data-translate="½ Ración Spaghetti Bolognesa">½ Ración Spaghetti Bolognesa
+                        </h3>
                         <div class="item-images">
                             <img src="./images/13.png" alt="Imagen 13">
                         </div>
@@ -3804,7 +3923,6 @@
                     <h3 class="footer-title">Chiringuito Cala Agulla</h3>
                     <div class="contact-info">
                         <p><i class="fas fa-map-marker-alt"></i> Playa Cala Agulla, Cala Ratjada</p>
-                        <p><i class="fas fa-phone"></i> +34 123 456 789</p>
                         <p><i class="fas fa-envelope"></i> info@chiringuitocalaagulla.com</p>
                     </div>
                     <div class="social-icons">
@@ -3817,10 +3935,7 @@
                 <div class="footer-section">
                     <div id="horario-footer" class="footer-section">
                         <h3 class="footer-title" data-translate="Horario">Horario</h3>
-                        <p><i class="fas fa-clock"></i> <span data-translate="Todos los días">Todos los días</span></p>
-                        <p>11:00 - 18:00</p>
-                        <p><i class="fas fa-sun"></i> <span data-translate="Temporada de verano">Temporada de
-                                verano</span>:
+                        <p><i class="fas fa-sun"></i> <span data-translate="Todos los días">Temporada de verano</span>:
                         </p>
                         <p>10:00 - 20:00</p>
                     </div>
@@ -4594,15 +4709,15 @@
                 "Recomendación": "Chef's Recommendation",
                 "Club": "Club Sandwich",
                 "Tres pisos de pan con jamón york, queso, tomate, lechuga, pollo, huevo, bacon y salsa rosa":
-                    "Three layers of bread with York ham, cheese, tomato, lettuce, chicken, egg, bacon and pink sauce",
+                    "Three layers of bread with York ham, cheese, tomato, lettuce, chicken, egg, bacon and Cocktail sauce",
 
                 "Vegetal": "Vegetarian Sandwich",
                 "Lechuga, tomate, cebolla, huevo, salsa rosa":
-                    "Lettuce, tomato, onion, egg and pink sauce",
+                    "Lettuce, tomato, onion, egg and Cocktail sauce",
 
                 "Especial Atún": "Tuna Special",
                 "Tres pisos de pan con queso, cebolla morada, tomate, lechuga, atún, huevo y salsa rosa":
-                    "Three layers of bread with cheese, red onion, tomato, lettuce, tuna, egg and pink sauce",
+                    "Three layers of bread with cheese, red onion, tomato, lettuce, tuna, egg and Cocktail sauce",
 
                 "Especial Salmón": "Salmon Special",
                 "Tres pisos de pan con lechuga, tomate, salmón, huevo y salsa de mostaza con miel":
@@ -4698,7 +4813,7 @@
                 "Cesar": "Caesar",
                 "Tiras de pollo, escamas de parmesano, croutons, cebolla morada y salsa cesar": "Chicken strips, parmesan flakes, croutons, red onion and Caesar dressing",
                 "Pollo con frutas": "Chicken with Fruits Salad",
-                "Mezcla de lechugas, tomate, cebolla, pollo, salsa rosa, nueces y manzana": "Mixed lettuce, tomato, onion, chicken, pink sauce, walnuts and apple",
+                "Mezcla de lechugas, tomate, cebolla, pollo, salsa rosa, nueces y manzana": "Mixed lettuce, tomato, onion, chicken, Cocktail sauce, walnuts and apple",
                 "Salmón": "Salmon Salad",
                 "Mezcla de lechugas, tomate, zanahoria, salmón, tomate seco y vinagreta": "Mixed lettuce, tomato, carrot, salmon, sun-dried tomato and vinaigrette",
                 "Gourmet": "Gourmet",
@@ -4708,15 +4823,15 @@
                 "Avocado, piña, feta, bacon, cebolla frita, lechuga, salsa mostaza y naranja": "Avocado, pineapple, feta, bacon, fried onion, lettuce, mustard dressing and orange",
                 "Especial": "Special",
                 "Ensalada Tropical": "Tropical Salad",
-                "Mezcla de lechugas, aguacate, piña, naranja, manzana, tomate cherry, gambas y salsa rosa": "Mixed lettuce, avocado, pineapple, orange, apple, cherry tomato, prawns and pink sauce",
+                "Mezcla de lechugas, aguacate, piña, naranja, manzana, tomate cherry, gambas y salsa rosa": "Mixed lettuce, avocado, pineapple, orange, apple, cherry tomato, prawns and Cocktail sauce",
 
                 //Salsas
                 "Salsas": "Sauces",
                 "Yogur": "Yogurt Sauce",
                 "Crema de yogur natural con especias": "Natural yogurt cream with spices",
-                "Rosa": "Pink Sauce",
+                "Rosa": "Cocktail sauce",
                 "Mezcla de mayonesa y ketchup": "Mayonnaise and ketchup mix",
-                "Alioli": "Garlic Aioli",
+                "Alioli": "Garlic sauce",
                 "Emulsión de ajo y aceite de oliva": "Garlic and olive oil emulsion",
                 "Salsa César": "Caesar Dressing",
                 "Clásica salsa con anchoas y parmesano": "Classic dressing with anchovies and parmesan",
@@ -4734,6 +4849,7 @@
                 "Pechuga de Pollo": "Chicken Breast",
                 "Recomendación": "Chef's Recommendation",
                 "Cordon Blue de Cerdo Casero": "Homemade Pork Cordon Bleu",
+                "Cordon Blue de Pollo Casero": "Homemade Chicken Cordon Bleu",
 
                 //Pescado
                 "Pescados": "Fish & Seafood",
@@ -5046,8 +5162,8 @@
 
                 //Tapas
                 "Tapas": "Tapas",
-                "Alioli con pan y aceitunas": "Knoblauch-Mayonnaise mit Brot und Oliven",
-                "Pan de pizza alioli y aceitunas": "Pizzabrot mit Knoblauch-Mayonnaise und Oliven",
+                "Alioli con pan y aceitunas": "Alioli mit Brot und Oliven",
+                "Pan de pizza alioli y aceitunas": "Pizzabrot mit Alioli und Oliven",
                 "Plato jamón de cebo ibérico": "Iberischer Eichelschinken Teller",
                 "Tabla de quesos": "Käseplatte",
                 "Plato de jamón serrano y queso": "Serrano-Schinken mit Käse",
@@ -5056,7 +5172,7 @@
                 "Puntillas de calamar": "Baby-Tintenfisch (frittiert)",
                 "Rabas de calamar": "Tintenfischringe (frittiert)",
                 "Papas bravas": "Scharfe Kartoffeln mit Brava-Soße",
-                "Papas con alioli": "Kartoffeln mit Knoblauch-Mayonnaise",
+                "Papas con alioli": "Kartoffeln mit Alioli",
                 "Papas gratinadas con queso y bacon": "Überbackene Kartoffeln mit Käse und Speck",
                 "Nachos con queso": "Nachos mit Käse",
                 "Nachos con pollo y queso": "Nachos mit Hähnchen und Käse",
@@ -5134,7 +5250,7 @@
                 "Cesar": "Cäsar",
                 "Tiras de pollo, escamas de parmesano, croutons, cebolla morada y salsa cesar": "Hähnchenstreifen, Parmesanflocken, Croutons, rote Zwiebel und Cäsar-Dressing",
                 "Pollo con frutas": "Hähnchen mit Früchten Salat",
-                "Mezcla de lechugas, tomate, cebolla, pollo, salsa rosa, nueces y manzana": "Gemischter Salat, Tomate, Zwiebel, Hähnchen, Rosa-Sauce, Walnüsse und Apfel",
+                "Mezcla de lechugas, tomate, cebolla, pollo, salsa rosa, nueces y manzana": "Gemischter Salat, Tomate, Zwiebel, Hähnchen, Cocktailsauce, Walnüsse und Apfel",
                 "Salmón": "Lachs Salat",
                 "Mezcla de lechugas, tomate, zanahoria, salmón, tomate seco y vinagreta": "Gemischter Salat, Tomate, Karotte, Lachs, getrocknete Tomate und Vinaigrette",
                 "Gourmet": "Gourmet",
@@ -5144,15 +5260,15 @@
                 "Avocado, piña, feta, bacon, cebolla frita, lechuga, salsa mostaza y naranja": "Avocado, Ananas, Feta, Speck, gebratene Zwiebel, Salat, Senf-Dressing und Orange",
                 "Especial": "Spezial",
                 "Ensalada Tropical": "Tropischer Salat",
-                "Mezcla de lechugas, aguacate, piña, naranja, manzana, tomate cherry, gambas y salsa rosa": "Gemischter Salat, Avocado, Ananas, Orange, Apfel, Cherrytomaten, Garnelen und Rosa-Sauce",
+                "Mezcla de lechugas, aguacate, piña, naranja, manzana, tomate cherry, gambas y salsa rosa": "Gemischter Salat, Avocado, Ananas, Orange, Apfel, Cherrytomaten, Garnelen und Cocktailsauce",
 
                 //Salsas
                 "Salsas": "Soßen",
                 "Yogur": "Joghurt-Soße",
                 "Crema de yogur natural con especias": "Natürliche Joghurtcreme mit Gewürzen",
-                "Rosa": "Rosa Soße",
+                "Rosa": "Cocktailsauce",
                 "Mezcla de mayonesa y ketchup": "Mayonnaise und Ketchup Mischung",
-                "Alioli": "Knoblauch-Mayonnaise",
+                "Alioli": "Alioli",
                 "Emulsión de ajo y aceite de oliva": "Knoblauch und Olivenöl Emulsion",
                 "Salsa César": "Cäsar-Dressing",
                 "Clásica salsa con anchoas y parmesano": "Klassisches Dressing mit Sardellen und Parmesan",
@@ -5170,6 +5286,7 @@
                 "Pechuga de Pollo": "Hähnchenbrust",
                 "Recomendación": "Empfehlung des Hauses",
                 "Cordon Blue de Cerdo Casero": "Hausgemachtes Schweine-Cordon-Bleu",
+                "Cordon Blue de Pollo Casero": "Hausgemachtes Hähnchen Cordon Bleu",
 
                 //Pescado
                 "Pescados": "Fisch & Meeresfrüchte",
